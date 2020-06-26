@@ -1,4 +1,5 @@
 dependencies:
+  crypto: 1.0.1
   discord.js: 11.6.4
   express: 4.17.1
   querystring: 0.2.0
@@ -67,6 +68,11 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-+Hp8fLp57wnUSt0tY0tHEXh4voZRDnoIrZPqlo3DPiI4y9lwg/jqx+1Om94/W6ZaPDOUbnjOt/99w66zk+l1Xg==
+  /crypto/1.0.1:
+    deprecated: 'This package is no longer supported. It''s now a built-in Node module. If you''ve depended on crypto, you should switch to the one that''s built-in.'
+    dev: false
+    resolution:
+      integrity: sha512-VxBKmeNcqQdiUQUW2Tzq0t377b54N2bMtXO/qiLa+6eRRmmC4qT3D4OnTGoT/U6O9aklQ/jTwbOtRMTTY8G0Ig==
   /debug/2.6.9:
     dependencies:
       ms: 2.0.0
@@ -449,6 +455,7 @@ registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
 specifiers:
+  crypto: ^1.0.1
   discord.js: ^11.6.4
   express: ^4.17.1
   querystring: ^0.2.0
