@@ -72,6 +72,8 @@ function compareSheetData(oldId, newId){
     var newValues = newSheet.getRange("A:P").getValues();
     var offset = 0;
     for(var j = 0;j < oldValues.length;j++){
+      if(newValues[j+offset] === undefined) break;
+      if(newValues[j+offset][6] == "" || newValues[j+offset][6] == "name") continue;
       var oldSongName = oldValues[j][6];
       var newSongName = newValues[j+offset][6];
       var oldTeScore = oldValues[j][4]
@@ -90,7 +92,6 @@ function compareSheetData(oldId, newId){
       }
       var newScoreMax = newValues[j+offset][15];
       var oldScoreMax = oldValues[j][15];
-      if(newSongName == "" || newSongName == "name") continue;
       if(oldSongName != newSongName){
         dataArray.push([newSongName, newScoreMax, 0, 0, newTeScore, newTaScore]);
         offset++;
@@ -104,6 +105,7 @@ function compareSheetData(oldId, newId){
   }
   return dataArray;
 }
+
 function postScoreUpdate(data){
   var nonce = Math.floor(Math.random()*100000000);
   var hash = Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, password+nonce)
