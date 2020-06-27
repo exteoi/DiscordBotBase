@@ -141,7 +141,7 @@ function postScoreUpdate(data){
   }
   if(array.length > 0){
     var emb = {
-      "description": ":fire:「[でらっくスコア大戦](https://1drv.ms/x/s!AslKwTb7CiiqjlL2iEdRwsU7l_in)」更新情報 :fire:",
+      "description": ":fire:「[でらっくスコア大戦](https://1drv.ms/x/xxxxxxxxxxxxxxxxxxxxxxxxx)」更新情報 :fire:",
       "fields": array,
       color: 7506394
     };
