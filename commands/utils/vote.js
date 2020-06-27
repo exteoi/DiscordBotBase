@@ -9,15 +9,15 @@ module.exports = class Vote extends cmd.Command {
             group: 'utils',
             memberName: 'vote',
             description: "選択肢が ✅ / ❌ / 🤔 の投票を作成します。",
-            examples: ['!vote "ネコ派の人～～～！" "ネコ派の人は:white_check_mark: 、イヌ派の人は:x: 、それ以外の人は:thinking: を選んでね～" 0 #一般'],
+            examples: ['!vote "ネコ派の人～～～！" "ネコ派の人は✅ 、イヌ派の人は❌ 、それ以外の人は🤔 を選んでね～" 0 #一般'],
             args: [
                 {
                     key: 'question',
                     prompt: '投票のテーマを入力してください。',
                     type: 'string',
                     validate: question => {
-                        if (question.length < 31 && question.length > 4) return true;
-                        return 'テーマは5~30文字にしてください。';
+                        if (question.length < 31 && question.length > 2) return true;
+                        return 'テーマは3~30文字にしてください。';
                     }
                 },
                 {
@@ -34,8 +34,8 @@ module.exports = class Vote extends cmd.Command {
                     prompt: '投票を受け付ける時間を入力してください（分）。0を指定すると制限時間無しになります。',
                     type: 'integer',
                     validate: time => {
-                        if (time >= 0 && time <= 60) return true;
-                        return '時間は0~60分にしてください。';
+                        if (time >= 0 && time <= 1440) return true;
+                        return '時間は0~1440分にしてください。';
                     } 
                 },
                 {
@@ -48,7 +48,7 @@ module.exports = class Vote extends cmd.Command {
     }
     
     run(msg, {question, channel, time, detail}) {
-        var emojis = ['✅','❌','🤔'];
+      var emojis = ['✅','❌','🤔'];
         var emb = new discord.RichEmbed()
             .setTitle(question)
             .setDescription(detail)
@@ -57,7 +57,14 @@ module.exports = class Vote extends cmd.Command {
             .setTimestamp();
             
         if (time) {
-            emb.setFooter('この投票は、開始から' + time + '分後に締め切られます。');
+            if (time > 60){
+                var hs = Math.floor(time / 60) + '時間';
+                var m = time % 60;
+                var ms = (m==0)?'':m+'分';
+                emb.setFooter('この投票は、開始から' + hs + ms + '後に締め切られます。');
+            }else{
+                emb.setFooter('この投票は、開始から' + time + '分後に締め切られます。');
+            }
         } else {
             emb.setFooter('この投票は無期限です。');
         }
