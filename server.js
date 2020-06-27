@@ -32,7 +32,7 @@ http.createServer(function(req, res){
 
 client.on('ready', message =>{
   console.log('Bot準備完了～');
-  client.user.setPresence({ activity: { name: 'げーむ' } });
+  client.user.setPresence({ game: { name: 'げーむ' } });
 });
 
 client.on('message', message =>{
