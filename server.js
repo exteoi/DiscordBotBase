@@ -18,21 +18,25 @@ http.createServer(function(req, res){
       if(!data){
         res.end("No post data");
         res.end();
+        return;
       }
       var dataObject = querystring.parse(data);
       console.log("post:" + dataObject.type);
       if(dataObject.type == "wake"){
         console.log("Woke up in post");
         res.end();
+        return;
       }
       if(dataObject.hash === undefined || dataObject.nonce === undefined){
         console.log("undefined hash");
         res.end();
+        return;
       }else{
         let serverHash = crypto.createHash('sha256').update(password + Math.floor(dataObject.nonce)).digest('hex');
         if(String(dataObject.hash) != serverHash){
           console.log("invalid hash");
           res.end();
+          return;
         }else{
           console.log("nonce:" + Math.floor(dataObject.nonce));
           console.log("hash ok");
