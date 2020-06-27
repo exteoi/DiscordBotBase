@@ -12,7 +12,7 @@ http.createServer(function(req, res){
     req.on('end', function(){
       if(!data){
         res.end("No post data");
-        return;
+        res.end();
       }
       var dataObject = querystring.parse(data);
       console.log("post:" + dataObject.type);
