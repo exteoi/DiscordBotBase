@@ -11,8 +11,9 @@
   },
   "dependencies": {
     "express": "^4.17.1",
+    "discord.js-commando": "^0.10.0",
     "discord.js": "^11.6.4",
-    "querystring": "^0.2.0"
+    "path": "^0.12.7"
   },
   "engines": {
     "node": "12.x"
