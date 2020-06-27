@@ -57,7 +57,7 @@ module.exports = class Vote extends cmd.Command {
             .setTimestamp();
             
         if (time) {
-            emb.setFooter('この投票は' + time + '分後に締め切られます。');
+            emb.setFooter('この投票は、開始から' + time + '分後に締め切られます。');
         } else {
             emb.setFooter('この投票は無期限です。');
         }
@@ -101,7 +101,7 @@ module.exports = class Vote extends cmd.Command {
                                     }
                                 }
                                 emb.addField(":fire:投票結果:fire:", resultText);
-                                emb.setFooter("この投票は開始から" + time + "分で締め切られました。");
+                                emb.setFooter("この投票は締め切られました。");
                                 emb.setTimestamp();
                                 message.edit("", emb);
                             });
