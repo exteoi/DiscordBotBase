@@ -1,5 +1,5 @@
-var excelFolderId = "13VElyU1xxxz20Ubh9xxxxxxxxxxxxxxx";
-var destFolderId  = "1YclJucmxxxNlq1-Ysxxxxxxxxxxxxxxx;
+var excelFolderId = "13VElyU1ZRAz20Ubh9WQoG1O_R8HOOURJ";
+var destFolderId  = "1YclJucmemsNlq1-YsMhB-iJ1T3-iU6ML";
 var source_folder = DriveApp.getFolderById(excelFolderId);
 var dest_folder   = DriveApp.getFolderById(destFolderId);
 var scoreSheetArray = ["POPS&アニメ", "niconico&ボーカロイド", "東方Project", "ゲーム＆バラエティ", "maimai", "オンゲキ＆CHUNITHM", "ReMASTER"];
@@ -7,7 +7,7 @@ var scoreSheetArray = ["POPS&アニメ", "niconico&ボーカロイド", "東方P
 function scoreUpdate(){
   var oldFileName = "DSPA_orig_old";
   var newFileName = "DSPA_orig_new";
-  var excelUrl = "https://docs.google.com/spreadsheets/d/1ccr1yJiRtrR-gnmcvxxxxxxxxxxxxxxxxxxxxxx/export?format=xlsx";
+  var excelUrl = "https://docs.google.com/spreadsheets/d/1ccr1yJiRtrR-gnmcvL1VLDDD4PXouRq_n9RkL5WyZRg/export?format=xlsx";
   arrangeSheet(oldFileName, newFileName);
   createSheet(excelUrl, newFileName);
   var oldFileId = DriveApp.getFolderById(destFolderId).getFilesByName(oldFileName).next().getId();
@@ -74,11 +74,14 @@ function compareSheetData(oldId, newId){
     for(var j = 0;j < oldValues.length;j++){
       var oldSongName = oldValues[j][6];
       var newSongName = newValues[j+offset][6];
-      if(oldValues[j][6] != newValues[j+offset][6]){
-        offset++;
-        j--;
-        continue;
-      }
+      var oldTeScore = oldValues[j][4]
+      var oldTaScore = oldValues[j][5]
+      var newTeScore = newValues[j+offset][4];
+      var newTaScore = newValues[j+offset][5];
+      if(oldTeScore == ""){oldTeScore = 0;}
+      if(oldTaScore == ""){oldTaScore = 0;}
+      if(newTeScore == ""){newTeScore = 0;}
+      if(newTaScore == ""){newTaScore = 0;}
       if(newValues[j][15] == ""){
         newValues[j][15] = newValues[j][14];
       }
@@ -87,16 +90,14 @@ function compareSheetData(oldId, newId){
       }
       var newScoreMax = newValues[j+offset][15];
       var oldScoreMax = oldValues[j][15];
-      var oldTeScore = oldValues[j][4]
-      var oldTaScore = oldValues[j][5]
-      var newTeScore = newValues[j+offset][4];
-      var newTaScore = newValues[j+offset][5];
       if(newSongName == "" || newSongName == "name") continue;
-      if(oldTeScore == ""){oldTeScore = 0;}
-      if(oldTaScore == ""){oldTaScore = 0;}
-      if(newTeScore == ""){newTeScore = 0;}
-      if(newTaScore == ""){newTaScore = 0;}
-      if(oldTeScore != newTeScore || oldValues[j][5] != newValues[j+offset][5]){
+      if(oldSongName != newSongName){
+        dataArray.push([newSongName, newScoreMax, 0, 0, newTeScore, newTaScore]);
+        offset++;
+        j--;
+        continue;
+      }
+      if(oldTeScore != newTeScore || oldTaScore != newTaScore){
         dataArray.push([newSongName, newScoreMax, oldTeScore, oldTaScore, newTeScore, newTaScore]);
       }
     }
@@ -105,6 +106,12 @@ function compareSheetData(oldId, newId){
 }
 
 function postScoreUpdate(data){
+  var nonce = Math.floor(Math.random()*100000000);
+  var hash = Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, password+nonce)
+               .reduce(function(str,chr){
+                 chr = (chr < 0 ? chr + 256 : chr).toString(16);
+                 return str + (chr.length==1?'0':'') + chr;
+               },'');
   var array = [];
   for(var i = 0; i < data.length; i++){
     var te = "";
@@ -133,12 +140,14 @@ function postScoreUpdate(data){
   }
   if(array.length > 0){
     var emb = {
-      "description": ":fire:「[でらっくスコア大戦](https://1drv.ms/x/xxxxxxxxxxxxxxxxxxxxxxxxx)」更新情報 :fire:",
+      "description": ":fire:「[でらっくスコア大戦](https://1drv.ms/x/s!AslKwTb7CiiqjlL2iEdRwsU7l_in)」更新情報 :fire:",
       "fields": array,
       color: 7506394
     };
     var json = {
       'type':'announce',
+      'hash':hash, 
+      'nonce':nonce,
       'debug':'false',
       'content': JSON.stringify(emb)
     };
