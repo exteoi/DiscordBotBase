@@ -72,13 +72,18 @@ function compareSheetData(oldId, newId){
     var newValues = newSheet.getRange("A:P").getValues();
     var offset = 0;
     for(var j = 0;j < oldValues.length;j++){
+      if(newValues[j+offset] === undefined) break;
+      if(newValues[j+offset][6] == "" || newValues[j+offset][6] == "name") continue;
       var oldSongName = oldValues[j][6];
       var newSongName = newValues[j+offset][6];
-      if(oldValues[j][6] != newValues[j+offset][6]){
-        offset++;
-        j--;
-        continue;
-      }
+      var oldTeScore = oldValues[j][4]
+      var oldTaScore = oldValues[j][5]
+      var newTeScore = newValues[j+offset][4];
+      var newTaScore = newValues[j+offset][5];
+      if(oldTeScore == ""){oldTeScore = 0;}
+      if(oldTaScore == ""){oldTaScore = 0;}
+      if(newTeScore == ""){newTeScore = 0;}
+      if(newTaScore == ""){newTaScore = 0;}
       if(newValues[j][15] == ""){
         newValues[j][15] = newValues[j][14];
       }
@@ -87,16 +92,13 @@ function compareSheetData(oldId, newId){
       }
       var newScoreMax = newValues[j+offset][15];
       var oldScoreMax = oldValues[j][15];
-      var oldTeScore = oldValues[j][4]
-      var oldTaScore = oldValues[j][5]
-      var newTeScore = newValues[j+offset][4];
-      var newTaScore = newValues[j+offset][5];
-      if(newSongName == "" || newSongName == "name") continue;
-      if(oldTeScore == ""){oldTeScore = 0;}
-      if(oldTaScore == ""){oldTaScore = 0;}
-      if(newTeScore == ""){newTeScore = 0;}
-      if(newTaScore == ""){newTaScore = 0;}
-      if(oldTeScore != newTeScore || oldValues[j][5] != newValues[j+offset][5]){
+      if(oldSongName != newSongName){
+        dataArray.push([newSongName, newScoreMax, 0, 0, newTeScore, newTaScore]);
+        offset++;
+        j--;
+        continue;
+      }
+      if(oldTeScore != newTeScore || oldTaScore != newTaScore){
         dataArray.push([newSongName, newScoreMax, oldTeScore, oldTaScore, newTeScore, newTaScore]);
       }
     }
@@ -105,6 +107,12 @@ function compareSheetData(oldId, newId){
 }
 
 function postScoreUpdate(data){
+  var nonce = Math.floor(Math.random()*100000000);
+  var hash = Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, password+nonce)
+               .reduce(function(str,chr){
+                 chr = (chr < 0 ? chr + 256 : chr).toString(16);
+                 return str + (chr.length==1?'0':'') + chr;
+               },'');
   var array = [];
   for(var i = 0; i < data.length; i++){
     var te = "";
@@ -139,6 +147,8 @@ function postScoreUpdate(data){
     };
     var json = {
       'type':'announce',
+      'hash':hash, 
+      'nonce':nonce,
       'debug':'false',
       'content': JSON.stringify(emb)
     };
