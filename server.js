@@ -12,12 +12,14 @@ http.createServer(function(req, res){
     req.on('end', function(){
       if(!data){
         res.end("No post data");
-        res.end();
+        return;
       }
       var dataObject = querystring.parse(data);
       console.log("post:" + dataObject.type);
       if(dataObject.type == "wake"){
         console.log("Woke up in post");
+        res.end();
+        return;
       }
       res.end();
     });
