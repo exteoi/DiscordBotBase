@@ -1,5 +1,5 @@
-var excelFolderId = "13VElyU1ZRAz20Ubh9WQoG1O_R8HOOURJ";
-var destFolderId  = "1YclJucmemsNlq1-YsMhB-iJ1T3-iU6ML";
+var excelFolderId = "13VElyU1xxxz20Ubh9xxxxxxxxxxxxxxx";
+var destFolderId  = "1YclJucmxxxNlq1-Ysxxxxxxxxxxxxxxx;
 var source_folder = DriveApp.getFolderById(excelFolderId);
 var dest_folder   = DriveApp.getFolderById(destFolderId);
 var scoreSheetArray = ["POPS&アニメ", "niconico&ボーカロイド", "東方Project", "ゲーム＆バラエティ", "maimai", "オンゲキ＆CHUNITHM", "ReMASTER"];
@@ -7,7 +7,7 @@ var scoreSheetArray = ["POPS&アニメ", "niconico&ボーカロイド", "東方P
 function scoreUpdate(){
   var oldFileName = "DSPA_orig_old";
   var newFileName = "DSPA_orig_new";
-  var excelUrl = "https://docs.google.com/spreadsheets/d/1ccr1yJiRtrR-gnmcvL1VLDDD4PXouRq_n9RkL5WyZRg/export?format=xlsx";
+  var excelUrl = "https://docs.google.com/spreadsheets/d/1ccr1yJiRtrR-gnmcvxxxxxxxxxxxxxxxxxxxxxx/export?format=xlsx";
   arrangeSheet(oldFileName, newFileName);
   createSheet(excelUrl, newFileName);
   var oldFileId = DriveApp.getFolderById(destFolderId).getFilesByName(oldFileName).next().getId();
@@ -104,7 +104,6 @@ function compareSheetData(oldId, newId){
   }
   return dataArray;
 }
-
 function postScoreUpdate(data){
   var nonce = Math.floor(Math.random()*100000000);
   var hash = Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, password+nonce)
