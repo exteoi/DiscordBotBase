@@ -1,7 +1,8 @@
 dependencies:
   discord.js: 11.6.4
+  discord.js-commando: 0.10.0
   express: 4.17.1
-  querystring: 0.2.0
+  path: 0.12.7
 packages:
   /accepts/1.3.7:
     dependencies:
@@ -43,6 +44,12 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha512-zauLjrfCG+xvoyaqLoV8bLVXXNGC4JqlxFCutSDWA6fJrTo2ZuvLYTqZ7aHBLZSMOopbzwv8f+wZcVzfVTI2Dg==
+  /common-tags/1.8.0:
+    dev: false
+    engines:
+      node: '>=4.0.0'
+    resolution:
+      integrity: sha512-6P6g0uetGpW/sdyUy/iQQCbFF0kWVMSIVSyYz7Zgjcgh8mgw8PQzDNZeyZ5DQ2gM7LBoZPHmnjz8rUthkBG5tw==
   /content-disposition/0.5.3:
     dependencies:
       safe-buffer: 5.1.2
@@ -83,6 +90,19 @@ packages:
     dev: false
     resolution:
       integrity: sha1-l4hXRCxEdJ5CBmE+N5RiBYJqvYA=
+  /discord.js-commando/0.10.0:
+    dependencies:
+      common-tags: 1.8.0
+      escape-string-regexp: 1.0.5
+      require-all: 2.2.0
+    dev: false
+    engines:
+      node: '>=7.6.0'
+    peerDependencies:
+      discord.js: ^11.2.0
+      sqlite: ^2.0.0
+    resolution:
+      integrity: sha1-v6mL8zEIcDdvPHoNe3Nqaj5dCg8=
   /discord.js/11.6.4:
     dependencies:
       long: 4.0.0
@@ -118,6 +138,12 @@ packages:
     dev: false
     resolution:
       integrity: sha1-Aljq5NPQwJdN4cFpGI7wBR0dGYg=
+  /escape-string-regexp/1.0.5:
+    dev: false
+    engines:
+      node: '>=0.8.0'
+    resolution:
+      integrity: sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
   /etag/1.8.1:
     dev: false
     engines:
@@ -306,10 +332,23 @@ packages:
     dev: false
     resolution:
       integrity: sha1-32BBeABfUi8V60SQ5yR6G/qmf4w=
+  /path/0.12.7:
+    dependencies:
+      process: 0.11.10
+      util: 0.10.4
+    dev: false
+    resolution:
+      integrity: sha1-1NwqUGxM4hl+tIHr/NWzbAFAsQ8=
   /prism-media/0.0.4:
     dev: false
     resolution:
       integrity: sha512-dG2w7WtovUa4SiYTdWn9H8Bd4JNdei2djtkP/Bk9fXq81j5Q15ZPHYSwhUVvBRbp5zMkGtu0Yk62HuMcly0pRw==
+  /process/0.11.10:
+    dev: false
+    engines:
+      node: '>= 0.6.0'
+    resolution:
+      integrity: sha1-czIwDoQBYb2j5podHZGn1LwW8YI=
   /proxy-addr/2.0.5:
     dependencies:
       forwarded: 0.1.2
@@ -325,12 +364,6 @@ packages:
       node: '>=0.6'
     resolution:
       integrity: sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
-  /querystring/0.2.0:
-    dev: false
-    engines:
-      node: '>=0.4.x'
-    resolution:
-      integrity: sha1-sgmEkgO7Jd+CDadW50cAWHhSFiA=
   /range-parser/1.2.1:
     dev: false
     engines:
@@ -348,6 +381,10 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha512-4Oz8DUIwdvoa5qMJelxipzi/iJIi40O5cGV1wNYp5hvZP8ZN0T+jiNkL0QepXs+EsQ9XJ8ipEDoiH70ySUJP3Q==
+  /require-all/2.2.0:
+    dev: false
+    resolution:
+      integrity: sha1-tEIMIzrAKC0P9Jsnf7iAqLXeCJQ=
   /safe-buffer/5.1.2:
     dev: false
     resolution:
@@ -427,6 +464,12 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha1-sr9O6FFKrmFltIF4KdIbLvSZBOw=
+  /util/0.10.4:
+    dependencies:
+      inherits: 2.0.3
+    dev: false
+    resolution:
+      integrity: sha512-0Pm9hTQ3se5ll1XihRic3FDIku70C+iHUdT/W926rSgHV5QgXsYbKZN8MSC3tJtSkhuROzvsQjAaFENRXr+19A==
   /utils-merge/1.0.1:
     dev: false
     engines:
@@ -450,5 +493,6 @@ shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
 specifiers:
   discord.js: ^11.6.4
+  discord.js-commando: ^0.10.0
   express: ^4.17.1
-  querystring: ^0.2.0
+  path: ^0.12.7
