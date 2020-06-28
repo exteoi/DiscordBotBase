@@ -56,7 +56,7 @@ http.createServer(function(req, res){
           msgChannelId = mainChannelId;
         }
         let msgMention = "<@270557414510690305>";
-        let videoId = dataObject.url.replace("https://www.youtube.com/watch?v=", "");
+        let videoId = dataObject.url.replace("https://youtu.be/", "");
         let emb = {embed: {
           author: {
             name: "takerun3367",
