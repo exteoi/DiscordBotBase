@@ -66,7 +66,7 @@ function sendReply(message, text){
 async function sendMsg(channelId, text, option={}){
   console.log(channelId);
   option = "";
-  let c = await client.channels.fetch(channelId);
+  let c = await client.channels.get(channelId);
   c.send(text, option)
     .then( console.log("メッセージ送信:" + text + JSON.stringify(option)) )
     .catch(console.error);
