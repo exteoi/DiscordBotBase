@@ -32,7 +32,7 @@ http.createServer(function(req, res){
 
 client.on('ready', message =>{
   console.log('Bot準備完了～');
-  client.user.setPresence({ game: { name: 'げーむ' } });
+  client.user.setPresence({ activity: { name: 'げーむ' } });
 });
 
 client.on('message', message =>{
@@ -63,10 +63,8 @@ function sendReply(message, text){
     .catch(console.error);
 }
 
-async function sendMsg(channelId, text, option={}){
-  console.log(channelId);
-  let c = await client.channels.get(channelId);
-  c.send(text, option)
-    .then( console.log("メッセージ送信:" + text + JSON.stringify(option)) )
+function sendMsg(channelId, text, option={}){
+  client.channels.get(channelId).send(text, option)
+    .then(console.log("メッセージ送信: " + text + JSON.stringify(option)))
     .catch(console.error);
 }
